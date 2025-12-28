@@ -1,0 +1,12 @@
+steps:
+  - name: 'python'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo " === Starting python hello.py "
+        python hello.py
+        echo " === Finished python hello.py "
+
+options:
+  logging: CLOUD_LOGGING_ONLY 
