@@ -1,0 +1,1 @@
+gcloud built submit --config=deploy-cloud-run.yaml --service-account=gcp-devops-sa@gcp-devops-482520.iam.gserviceaccount.com

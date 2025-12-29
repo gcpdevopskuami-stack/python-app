@@ -1,0 +1,36 @@
+steps:
+  # Step 1: Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build', 
+      '-t', 'us-central1-docker.pkg.dev/gcp-devops-482520/python-app-image/app-image:v2', 
+      '.'
+    ]
+
+  # Step 2: Push the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push', 
+      'us-central1-docker.pkg.dev/gcp-devops-482520/python-app-image/app-image:v2'
+    ]
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args: 
+      - '-c'
+      - |
+        echo "Deploying image toi cloud run..." \
+          -- image=us-central1-docker.pkg.dev/gcp-devops-482520/python-app-image/app-image:v2 \
+          -- region=us-central1 \ 
+          -- platform=managed \
+          -- service=python-app \
+          --allow-unauthenticated \
+          --port=8080 
+        echo "Deploy successfully."
+
+
+images:
+  - 'us-central1-docker.pkg.dev/gcp-devops-482520/python-app-image/app-image:v2'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
