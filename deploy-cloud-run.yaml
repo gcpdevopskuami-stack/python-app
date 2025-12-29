@@ -14,12 +14,13 @@ steps:
       'us-central1-docker.pkg.dev/gcp-devops-482520/python-app-image/app-image:v2'
     ]
 
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    id: 'deploy cloud run'
     entrypoint: 'bash'
     args: 
       - '-c'
       - |
-        echo "Deploying image toi cloud run..." \
+        echo "Deploying image to cloud run..." \
           -- image=us-central1-docker.pkg.dev/gcp-devops-482520/python-app-image/app-image:v2 \
           -- region=us-central1 \ 
           -- platform=managed \
